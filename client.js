@@ -325,7 +325,14 @@ window.__ModuleLoader__.load({
 						jsx.jsx(Kv, { k: '仓库', children: `${pre.owner ?? '?'}/${pre.repoName ?? '?'}` }),
 						jsx.jsx(Kv, { k: '体积', children: `${pre.sizeText ?? formatBytes(pre.size?.bytes)} · ${pre.size?.files ?? '?'} 个文件` }),
 						jsx.jsx(Kv, { k: 'git', children: pre.isGitRepo === true ? `已初始化 · ${pre.changes ?? 0} 个变更` : '尚未初始化' }),
-						jsx.jsx(Kv, { k: '远端仓库', children: pre.github?.repoExists === true ? '已存在，将直接推送' : '将新建' })
+						jsx.jsx(Kv, {
+							k: '远端仓库',
+							// Report the remote's actual visibility when it exists; the
+							// checkbox value is only the request, not the current state.
+							children: pre.github?.repoExists === true
+								? `已存在（${pre.github.repoPrivate === true ? '私有' : '公开'}），将直接推送`
+								: `将新建（${isPrivate ? '私有' : '公开'}）`
+						})
 					] }),
 					Array.isArray(pre.stackLabels) && pre.stackLabels.length > 0
 						? jsx.jsx('div', { style: { display: 'flex', gap: 6, flexWrap: 'wrap' }, children: pre.stackLabels.map(name =>
