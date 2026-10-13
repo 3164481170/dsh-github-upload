@@ -1,0 +1,57 @@
+{
+  "name": "dsh-github-upload",
+  "displayName": "DSH GitHub Upload",
+  "description": "把已完成的项目一键上传到 GitHub — upload a finished project directory to GitHub: preflight scan, .gitignore generation, git init/commit, repo creation, and push. Only needs git plus a GitHub token; no gh CLI.",
+  "version": "0.1.0",
+  "author": "local",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "github",
+    "upload",
+    "git",
+    "publish"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./detect": "./lib/detect.js",
+    "./git": "./lib/git.js",
+    "./github": "./lib/github.js",
+    "./scan": "./lib/scan.js",
+    "./upload": "./lib/upload.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "^3.18.2"
+  }
+}

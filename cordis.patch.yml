@@ -1,0 +1,6 @@
+# Register the GitHub upload plugin. The entry id must match the plugin
+# module's exported `name`; the loader resolves `name` as a package from this
+# profile's dependency tree.
+- insert:
+    - id: github-upload
+      name: dsh-github-upload
